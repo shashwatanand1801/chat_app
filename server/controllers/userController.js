@@ -11,8 +11,9 @@ module.exports.login = async (req, res, next) => {
     if (!isPasswordValid)
       return res.json({ msg: "Incorrect Username or Password", status: false });
     delete user.password;
-    console.log(username)
-    doc = await User.findOneAndUpdate({username: username}, {status: 'AVAILABLE'})
+    preDoc = await User.findOne({username: username});
+    console.log(preDoc)
+    doc = await User.findOneAndUpdate({username: username}, {status: 'AVAILABLE'}, {returnNewDocument:true})
     console.log(doc)
     // console.log(User.findOne({username: username}))
     return res.json({ status: true, user });
@@ -78,12 +79,14 @@ module.exports.setAvatar = async (req, res, next) => {
   }
 };
 
-module.exports.logOut = (req, res, next) => {
+module.exports.logOut = async (req, res, next) => {
   try {
     const id = req.params.key.split("-")[0];
     const username = req.params.key.split("-")[1];
     if (!id) return res.json({ msg: "User id is required " });
-    User.findOneAndReplace({username: username}, {status: 'BUSY'});
+    console.log("username -> " + username)
+    doc = await User.findOneAndUpdate({username: username}, {status: 'BUSY'}, {returnNewDocument:true})
+    console.log(doc)
     onlineUsers.delete();
     return res.status(200).send();
   } catch (ex) {

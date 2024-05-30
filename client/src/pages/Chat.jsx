@@ -44,7 +44,7 @@ export default function Chat() {
   }, [currentUser]);
   const handleChatChange = (chat) => {
     console.log("Cur User")
-    console.log(currentUser)
+    // console.log(currentUser)
     setCurrentChat(chat);
   };
   return (
