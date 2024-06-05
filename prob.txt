@@ -1,0 +1,11 @@
+promise.race()
+promise.all()
+
+
+problem statement
+
+can start both parallely
+
+llm 1 -> P0  (rep in 10 sec)
+llm 2 -> P1  (if responded in 10 sec then return)
+otherwise standard response

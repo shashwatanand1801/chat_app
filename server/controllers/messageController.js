@@ -1,6 +1,7 @@
 const Messages = require("../models/messageModel");
 const User = require("../models/userModel")
 const getLLMResponse = require("../utils/llmMock")
+const llmResponse = require('../utils/llmTest')
 const fetchWithTimeout = require("../utils/test")
 
 module.exports.getMessages = async (req, res, next) => {
@@ -40,7 +41,7 @@ module.exports.addMessage = async (req, res, next) => {
 
     if(doc.status === 'BUSY') {
         llmRes = ""
-        await getLLMResponse(message)
+        await llmResponse(message)
                     .then((response) => {
                       llmRes = response});
 
