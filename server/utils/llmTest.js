@@ -1,4 +1,4 @@
-const getLLMResponse = require('./llmMock');\
+const getLLMResponse = require('./llmMock');
 
 async function callLLM() {
     let llm1Promise = getLLMResponse('prompt for llm1');
